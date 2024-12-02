@@ -1,0 +1,33 @@
+name: Run Postman API Tests
+
+on:
+  push:
+    branches:
+      - main  # Specify the branch to trigger tests on push
+
+jobs:
+  run-postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Use a specific Node.js version
+
+      # Step 3: Install Newman
+      - name: Install Newman
+        run: npm install -g newman
+
+      # Step 4: Run Newman with Postman collection
+      - name: Run API Tests
+        run: |
+          newman run path/to/your-collection.json \
+            --environment path/to/your-environment.json \
+            --reporters cli,junit \
+            --reporter-junit-export results.xml
