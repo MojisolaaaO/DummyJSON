@@ -3,7 +3,7 @@ name: Run Postman API Tests
 on:
   push:
     branches:
-      - main  # Replace with your branch name
+      - main  
     paths:
       - APIs.json  # Trigger when collection is updated
       - environment.json  # Trigger when environment is updated
