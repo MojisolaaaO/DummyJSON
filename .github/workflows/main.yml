@@ -30,8 +30,8 @@ jobs:
       # Step 4: Run Newman with Postman collection
       - name: Run API Tests
         run: |
-          newman run APIs.json \
-            --environment environment.json \
+          newman run postman/collections/APIs.json \
+            --environment postman/collections/environment.json \
             --reporters cli,junit \
             --reporter-junit-export results.xml
 
