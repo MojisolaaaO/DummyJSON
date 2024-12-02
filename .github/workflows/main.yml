@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the repository
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -23,15 +23,35 @@ jobs:
         with:
           node-version: '18' # Use a specific Node.js version
 
-      # Step 3: Install Newman
-      - name: Install Newman
-        run: npm install -g newman
+      # Step 3: Install Newman and HTML Reporter
+      - name: Install Newman and HTML Reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-html  # Install the HTML reporter for Newman
 
       # Step 4: Run Newman with Postman collection
       - name: Run API Tests
         run: |
           newman run postman/collections/APIs.json \
             --environment postman/collections/environment.json \
-            --reporters cli,junit \
-            --reporter-junit-export results.xml
+            --reporters cli,html \
+            --reporter-html-export postman-results/report.html  # Generate HTML report
+
+      # Step 5: Upload HTML report as artifact
+      - name: Upload HTML Report to GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: postman-results  # Upload the folder containing the HTML report
+
+  deploy:
+    needs: run-postman-tests
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      # Step 6: Deploy the report to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
+
 
