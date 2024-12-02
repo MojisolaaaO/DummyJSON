@@ -1,0 +1,9 @@
+{
+  "values": [
+    {
+      "key": "baseURL",
+      "value": "https://dummyjson.com", 
+      "enabled": true
+    }
+  ]
+}
