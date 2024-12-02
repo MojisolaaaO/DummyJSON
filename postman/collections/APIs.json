@@ -212,17 +212,18 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "478134b5-3a8b-417b-b58b-07460c1c6e6e",
 								"exec": [
 									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "478134b5-3a8b-417b-b58b-07460c1c6e6e"
+								"packages": {}
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
+								"id": "2ec7af87-4e25-47ae-8048-084f79d93ad9",
 								"exec": [
 									"pm.test(\"Status code is 400\", function(){",
 									"    pm.response.to.have.status(400)",
@@ -232,12 +233,11 @@
 									"pm.test(\"Login with no password\", function(){",
 									"    const responseBody = pm.response.json()",
 									"    pm.expect(typeof responseBody).to.eq('object')",
-									"    pm.expect(responseBody.message).to.eq('Username is required')",
+									"    pm.expect(responseBody.message).to.eq('Username and password is required')",
 									"    })"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "2ec7af87-4e25-47ae-8048-084f79d93ad9"
+								"packages": {}
 							}
 						}
 					],
