@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main  # Specify the branch to trigger tests on push
-  pull_request:
-    branches:
-      - main  # Specify the branch to trigger tests on PR
+    paths:
+      - 'postman/collections/APIs.json'  # Only trigger if APIs.json is modified
+      - 'postman/collections/environment.json'  # Only trigger if environment.json is modifie
 
 jobs:
   run-postman-tests:
@@ -43,7 +43,8 @@ jobs:
         with:
           path: postman-results  # Upload the folder containing the HTML report
           
-
+    
+    # Step 6: Deploy the report to GitHub Pages
   deploy:
     needs: run-postman-tests
     runs-on: ubuntu-latest
@@ -53,7 +54,6 @@ jobs:
     environment:
       name: github-pages  # Use this for GitHub Pages deployment
     steps:
-      # Step 6: Deploy the report to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
 
