@@ -233,7 +233,7 @@
 									"pm.test(\"Login with no password\", function(){",
 									"    const responseBody = pm.response.json()",
 									"    pm.expect(typeof responseBody).to.eq('object')",
-									"    pm.expect(responseBody.message).to.eq('Username and password is required')",
+									"    pm.expect(responseBody.message).to.eq('Username and password required')",
 									"    })"
 								],
 								"type": "text/javascript",
