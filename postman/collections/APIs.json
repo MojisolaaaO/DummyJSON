@@ -1,0 +1,2527 @@
+{
+	"info": {
+		"_postman_id": "40dee167-3899-485d-a61c-2f7e78f87e0e",
+		"name": "APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "34735841-40dee167-3899-485d-a61c-2f7e78f87e0e"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Retrieve all products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be below 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9da3a565-63e4-4644-b8db-6926038a58d8"
+							}
+						}
+					],
+					"id": "55bfbb54-134e-4e83-91e1-e0b092717dc4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be below 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Id should be 20\", function(){",
+									"    pm.expect(pm.response.json().id).to.eq(20)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "254392b3-1a15-41ce-911f-570c12615813"
+							}
+						}
+					],
+					"id": "9067771d-1b7b-482f-bc0f-04ab5fc900ba",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/products/20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for a product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be below 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Response body should contain 'phone\", function(){",
+									"    pm.expect(pm.response.text()).to.include('phone')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "8e417a65-2085-4269-b3a8-a12d3c5fc484"
+							}
+						}
+					],
+					"id": "2b30df24-7a49-497c-8711-4a682b83828c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products/search?q=Phone",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Phone"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Limit and skip prdoucts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be below 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"The value of skip is 10\", function(){",
+									"    pm.expect(pm.response.json().skip).to.eq(10)",
+									"})",
+									"",
+									"pm.test(\"The value of limit is 10\", function(){",
+									"    pm.expect(pm.response.json().limit).to.eq(10)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9efd60c0-1a12-4434-8e82-7f8c7761650a"
+							}
+						}
+					],
+					"id": "450218a2-700b-4a63-85fb-7e2abd387e61",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products?limit=10&skip=10&select=title,price",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "skip",
+									"value": "10"
+								},
+								{
+									"key": "select",
+									"value": "title,price"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be below 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"// Postman test to check that all products in the response contain specific properties",
+									"pm.test(\"All products contain id, title, price, and images\", function () {",
+									"    ",
+									"    // Parse the response body as JSON and store it in a variable",
+									"    const jsonData = pm.response.json();",
+									"    ",
+									"    // Loop through each product in the 'products' array from the JSON response",
+									"    jsonData.products.forEach(function(product) {",
+									"        ",
+									"        // Assert that the current product object has the 'id' property",
+									"        pm.expect(product).to.have.property('id');",
+									"        pm.expect(typeof product.id).to.eq('number')",
+									"        ",
+									"        // Assert that the current product object has the 'title' property",
+									"        pm.expect(product).to.have.property('title');",
+									"        pm.expect(typeof product.title).to.eq('string');",
+									"",
+									"        // Assert that the current product object has the 'price' property",
+									"        pm.expect(product).to.have.property('price');",
+									"        pm.expect(typeof product.price).to.eq('number');",
+									"",
+									"        // Assert that the current product object has the 'images' property",
+									"        pm.expect(product).to.have.property('images');",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "49ea9fb1-add7-4526-8f63-70d587863614"
+							}
+						}
+					],
+					"id": "daf4cbf1-34a3-4a0f-84d4-d34f5fa32a62",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products?sortBy=title&order=asc&select=title,price,images",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "title"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								},
+								{
+									"key": "select",
+									"value": "title,price,images"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve all product categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be below 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"All categories contain slug, name, and url\", function () {",
+									"    ",
+									"    // Parse the response body as JSON and store it in a variable",
+									"    const jsonData = pm.response.json();",
+									"    ",
+									"    // Loop through each category in the array from the JSON response",
+									"    jsonData.forEach(function(category) {",
+									"        ",
+									"        pm.expect(category).to.have.property('slug');",
+									"        ",
+									"        pm.expect(category).to.have.property('name');",
+									"        ",
+									"        pm.expect(category).to.have.property('url');",
+									"        ",
+									"",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "2eebbd71-f808-4992-b5c9-758bd85dfaa2"
+							}
+						}
+					],
+					"id": "0c2b0f66-d35b-4702-8dfe-7370a1e8d01e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products/categories",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve product category list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Response body is an array\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('array')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "0967577d-0c84-48bb-a56c-88337939f764"
+							}
+						}
+					],
+					"id": "af49e509-be8b-46e1-9beb-b89446197861",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products/category-list",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"category-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrive product by category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Response body contains the total\", function(){",
+									"    pm.expect(pm.response.json()).to.have.property('total')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "825b5de1-d6dc-4929-9ea9-d0e3d8922c2b"
+							}
+						}
+					],
+					"id": "ea7e44c8-fa21-4416-949e-dc0f637db593",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products/category/tablets?select=title,price",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"category",
+								"tablets"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "title,price"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST Request\", function(){",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202])",
+									"})",
+									"",
+									"pm.test(\"Response time to be less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Response body to be an object\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('object')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "3be6167a-bebe-4ffc-bdbc-4c90b8518840"
+							}
+						}
+					],
+					"id": "10c48864-ac53-43b1-b0c6-ff309b4c1473",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"iPhone 16 Pro Max\",\n    \"price\": 1000.00,\n    \"discountPercentage\": 5.00,\n    \"stock\": 5000,\n    \"rating\": 4.98,\n    \"images\": [\n        \"https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-geo-240909_inline.jpg.large.jpg\"\n    ],\n    \"thumbnail\": \"https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-geo-240909_inline.jpg.large.jpg\",\n    \"description\": \"Latest iPhone\",\n    \"brand\": \"Apple\",\n    \"category\": \"Smartphones\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/products/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Response body to be an object\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('object')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "f07b073a-69b6-421b-b7da-c4c99b7dc0ef"
+							}
+						}
+					],
+					"id": "3e91cdf5-4dbe-4ad6-9c5c-4b3a19f2caeb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"title\": \"Essence Perfume\",\n  \"description\": \"Perfume\",\n  \"category\": \"beauty\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/products/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Response body to be an empty object\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('object').and.not.be.empty",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "29f4e85f-47a3-425b-a441-f5a193a45c96"
+							}
+						}
+					],
+					"id": "2b13294a-3ffb-4d64-b25f-47f0eb9e1401",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products/5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "f151e0e9-4020-42fd-a02f-91b4fadc025e"
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "Retrieve all carts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "20dc4ec7-d216-4427-89bd-cc054ab26cd2"
+							}
+						}
+					],
+					"id": "87eb669e-6e24-4609-acc1-21ebd78d0ee4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/carts",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be less than 1000ms\",function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Response body contains total\", function(){",
+									"    pm.expect(pm.response.json()).to.have.property('total')",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9d5e6b24-f7a2-45c8-a6de-5bc7e9d975d2"
+							}
+						}
+					],
+					"id": "48df1706-1320-411d-8ccf-dc6e954f9979",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/carts/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"carts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve cart by user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time to be less than 1000ms\",function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"Response body contains total, skip and limit\", function(){",
+									"    pm.expect(pm.response.json()).to.have.property('total')",
+									"     pm.expect(pm.response.json()).to.have.property('skip')",
+									"    pm.expect(pm.response.json()).to.have.property('limit')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "53fc2da1-439c-4cc7-a8f9-a2a91e930617"
+							}
+						}
+					],
+					"id": "b1fb164b-7a88-4461-b7a6-384bfed51f61",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/carts/user/5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"carts",
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST Request\", function(){",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"",
+									"pm.test(\"Response body to contain ids\", function(){",
+									"    pm.expect(pm.response.json().products[0].id).to.eq(100)",
+									"    pm.expect(pm.response.json().products[1].id).to.eq(145)",
+									"})",
+									"",
+									"pm.test(\"Response body to contain quantity\", function(){",
+									"    pm.expect(pm.response.json().products[0].quantity).to.eq(2)",
+									"    pm.expect(pm.response.json().products[1].quantity).to.eq(1)",
+									"    pm.expect(pm.response.json().totalQuantity).to.eq(3)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "cc1de8d2-4a12-4657-8a98-ed25da5d25d6"
+							}
+						}
+					],
+					"id": "16bfa27a-6730-4631-a8e6-65f1e5e3b204",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"userId\": 1,\n    \"products\": [\n     {\n        \"id\": 100,\n        \"quantity\": 2\n      },\n      {\n        \"id\": 145,\n        \"quantity\": 1\n      }\n    ]\n}\n   \n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/carts/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"carts",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response time is below 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"pm.test(\"id is 2\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody.id).to.eq('number')",
+									"    pm.expect(responseBody.id).to.eq(2)",
+									"})",
+									"",
+									"pm.test(\"product id is 8\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody.products[0].id).to.eq('number')",
+									"    pm.expect(responseBody.products[0].id).to.eq(8)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "ff2d9614-a587-4745-b87d-6489a46b4da8"
+							}
+						}
+					],
+					"id": "9794b303-1135-468b-af65-70a9eed6500d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"merge\": false, // this will include existing products in the cart\n    \"products\": [\n      {\n        \"id\": 8,\n        \"quantity\": 1\n      }\n    ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/carts/2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"carts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE Request\", function(){",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,204])",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "55a64db9-3b4d-48d0-bee7-71cb87412dfe"
+							}
+						}
+					],
+					"id": "2f91c0d1-4aae-4a65-902a-99980670596e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/carts/7",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"carts",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid URL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Invalid URL\", function(){",
+									"    pm.response.to.have.status(404)",
+									"})",
+									"",
+									"pm.test(\"Response body is empty\", function(){",
+									"    pm.expect(pm.response.text()).to.be.empty",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "f4ba8859-2752-41ca-a729-c3d16b1390a0"
+							}
+						}
+					],
+					"id": "24442d2d-8e86-4259-86a8-d55e4ee6bf91",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/car",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"car"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "036c891b-da74-4635-b9ed-a836bd75ddf1"
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login with valid credentials",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "df2b39c4-5dc8-4959-b8a3-827dc41c2a24"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"Successful login\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(responseBody).to.have.keys('accessToken', 'refreshToken', 'id', 'username', 'email', 'firstName', 'lastName', 'gender', 'image')",
+									"    pm.expect(typeof responseBody.accessToken).to.eq('string')",
+									"    pm.expect(typeof responseBody.refreshToken).to.eq('string')",
+									"    pm.expect(responseBody.username).to.eq('emmaj')",
+									"    })",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "baa53dec-4d3d-4816-b632-cd923632122d"
+							}
+						}
+					],
+					"id": "9a89b936-226c-445b-8632-13ddd204696a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"emmaj\",\n    \"password\": \"emmajpass\",\n    \"expiresInMins\": 60 // optional, defaults to 60\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attempting to login with no credentials",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9637671d-f13f-4c80-82b5-d9c230d6ce52"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.response.to.have.status(400)",
+									"    pm.response.to.have.status(\"Bad Request\")",
+									"})",
+									"",
+									"pm.test(\"Login with no credentials\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(responseBody.message).to.eq('Username and password required')",
+									"    })"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "5f623087-c143-468c-bb69-c0696178d2a5"
+							}
+						}
+					],
+					"id": "f249a810-041f-4df6-805c-2b2f1694cde5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"\",\n    \"password\": \"\",\n    \"expiresInMins\": 60 // optional, defaults to 60\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attempting to login with no username",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "00266439-e50c-4b4c-bc87-ff3abb4e1f90"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.response.to.have.status(400)",
+									"    pm.response.to.have.status(\"Bad Request\")",
+									"})",
+									"",
+									"pm.test(\"Login with no username\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(responseBody.message).to.eq('Username and password required')",
+									"    })"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "e8522dd3-6525-4324-8e96-e49efb90df4f"
+							}
+						}
+					],
+					"id": "a7de1ba5-ed44-42af-b59b-d5c1884f3e50",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"\",\n    \"password\": \"emmajpass\",\n    \"expiresInMins\": 60 // optional, defaults to 60\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attempting to login with no password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "478134b5-3a8b-417b-b58b-07460c1c6e6e"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.response.to.have.status(400)",
+									"    pm.response.to.have.status(\"Bad Request\")",
+									"})",
+									"",
+									"pm.test(\"Login with no password\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(responseBody.message).to.eq('Username is required')",
+									"    })"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "2ec7af87-4e25-47ae-8048-084f79d93ad9"
+							}
+						}
+					],
+					"id": "fef46343-f85c-455b-afee-3d18a32a02ee",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"emmaj\",\n    \"password\": \"\",\n    \"expiresInMins\": 60 // optional, defaults to 60\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login with invalid username",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "739eb1a3-b391-405a-8528-6da70d314e8d"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.response.to.have.status(400)",
+									"    pm.response.to.have.status(\"Bad Request\")",
+									"})",
+									"",
+									"pm.test(\"Invalid username\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(responseBody.message).to.eq('Invalid credentials')",
+									"    })"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "73ba5679-a266-4c44-b5ee-4fd775261a29"
+							}
+						}
+					],
+					"id": "ae02f2eb-ed2f-4957-96c1-08974e94c9de",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"emma\",\n    \"password\": \"emmajpass\",\n    \"expiresInMins\": 60 // optional, defaults to 60\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login with invalid password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "6b4c8835-d86f-44a5-b2df-0c2254e3ec0f"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.response.to.have.status(400)",
+									"    pm.response.to.have.status(\"Bad Request\")",
+									"})",
+									"",
+									"pm.test(\"Invalid password\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(responseBody.message).to.eq('Invalid credentials')",
+									"    })"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "0b5409d7-6247-452b-a7a8-adf437047ba3"
+							}
+						}
+					],
+					"id": "f1861450-2314-44f8-8d4e-924eaf08b1cb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"emmaj\",\n    \"password\": \"emma\",\n    \"expiresInMins\": 60 // optional, defaults to 60\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login with invalid credentials",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "89c227e4-adc3-4ffb-98f5-dbcbf2d9666a"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.response.to.have.status(400)",
+									"    pm.response.to.have.status(\"Bad Request\")",
+									"})",
+									"",
+									"pm.test(\"Invalid credentials\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(responseBody.message).to.eq('Invalid credentials')",
+									"    })"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "d0c416d9-6757-4fd4-97a5-28a843a1c2fb"
+							}
+						}
+					],
+					"id": "59021981-4406-47c4-83f0-a1ad96f56823",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"emma\",\n    \"password\": \"emma\",\n    \"expiresInMins\": 60 // optional, defaults to 60\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve auth user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response body to contain name\", function(){",
+									"    pm.expect(pm.response.json()).to.have.property('firstName')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "297e8b36-9cc8-4fd8-b7a9-73a92d53a7fe"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"try {",
+									"    const response = await pm.sendRequest({",
+									"        url: \"https://dummyjson.com/auth/me\",",
+									"        method: \"GET\"",
+									"    });",
+									"",
+									"    console.log(response.json());",
+									"} catch (err) {",
+									"    console.error(err);",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "7cda5393-299d-477e-98b9-7df4b8939b4f"
+							}
+						}
+					],
+					"id": "906a794e-1e1f-458b-8c23-0cf6096571e6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3MjgyMjIzOTUsImV4cCI6MTcyODIyNTk5NX0.v-Rc2y9GvVsElCm-XPUMGu6S5N-ZGGrI0WW28GmhDgw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/me",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response body to contain access token\", function(){",
+									"    pm.expect(typeof pm.response.json().accessToken).to.eq('string')",
+									"    pm.expect(pm.response.text()).to.include('accessToken')",
+									"})",
+									"",
+									"pm.test(\"Response body to contain refresh token\", function(){",
+									"    pm.expect(typeof pm.response.json().refreshToken).to.eq('string')",
+									"    pm.expect(pm.response.text()).to.include('refreshToken')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "be9c2f4b-ebc3-40bc-b5cd-e1efd4842a99"
+							}
+						}
+					],
+					"id": "08b1fc23-cbb2-4ab4-bdce-6a222996635c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3MjgwNzA1NTIsImV4cCI6MTczMDY2MjU1Mn0.Bf3o5hSAGbfDI-l0KXmRVLr-Pgmw20VZ23fiyr49XRc\",// Optional, if not provided, the server will use the cookie\n    \"expiresInMins\": 60 // optional (FOR ACCESS TOKEN), defaults to 60 \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/refresh",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "b8b69f45-cc0d-4267-b5b2-6f8bb8453a25"
+		},
+		{
+			"name": "Recipes",
+			"item": [
+				{
+					"name": "Retrieve all recipes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response body contains an array of recipes\", function(){",
+									"    pm.expect(Array.isArray(pm.response.json().recipes)).to.be.true;",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "cd8e689b-dea7-46c4-a158-1d39650694e2"
+							}
+						}
+					],
+					"id": "7d205bdd-19a5-4e74-bd96-8cfdf6bc2c90",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/recipes",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a recipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"pm.test(\"Response body to be an object\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('object')",
+									"})",
+									"",
+									"pm.test(\"Response body to be an array\", function(){",
+									"    pm.expect(pm.response.json().ingredients).to.be.an('array')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "288f07a9-6642-4f00-b152-ce9f82368b5a"
+							}
+						}
+					],
+					"id": "468e481b-287f-4987-a72b-ba65423d4329",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/recipes/5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"recipes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for a recipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Response body to be less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"pm.test(\"Response body to include Margherita\", function(){",
+									"    pm.expect(pm.response.json().recipes[0].name).to.include('Margherita')",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "7738cb48-4abe-4a6d-91f2-3ebf89f47a27"
+							}
+						}
+					],
+					"id": "79f8d39b-8d93-423d-b280-7dc54cc2a6c2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/recipes/search?q=Margherita",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"recipes",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Margherita"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve recipe tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Response body to be less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"pm.test(\"Response body to be an array\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('array')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "a1afdd10-3e5a-4544-9823-8c8c0fff2660"
+							}
+						}
+					],
+					"id": "c8892775-e65d-4dd1-9786-ee9f72a024f8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/recipes/tags",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"recipes",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve recipes by a meal type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Response body to be less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"pm.test(\"Meal type to include desert\", function(){",
+									"    pm.expect(pm.response.json().recipes[0].mealType).to.include.members(['Snack', 'Dessert']);",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "4debfa3e-56fb-48a6-a8ba-b05170997354"
+							}
+						}
+					],
+					"id": "104a785b-89d8-4647-a1b8-5e44495a02de",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/recipes/meal-type/dessert",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"recipes",
+								"meal-type",
+								"dessert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort recipes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Response body to be less than 1000ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000)",
+									"})",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "73ea1016-6e3a-4c77-b9a0-b46f7a21695c"
+							}
+						}
+					],
+					"id": "fc28e486-62a0-46eb-a07e-3ab32c48b69d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/recipes?sortBy=name&order=asc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"recipes"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "6bfc24c3-0526-4480-acb0-e2a016903ebc"
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Retrieve users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Code name has a string\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"} )",
+									"pm.test(\"Response body contains users\", function(){",
+									"    pm.expect(pm.response.json()).to.have.property('users')",
+									"})",
+									"pm.test(\"Response body to be an object\", function(){",
+									"    pm.expect(typeof pm.response.json()).to.eq('object')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "218a5331-05df-43eb-b347-953033476720"
+							}
+						}
+					],
+					"id": "ca1a2a7b-b889-4691-9b5e-e7000d647ff9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login and retrieve token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Fixed syntax error",
+									"pm.test(\"Successful POST request\", function(){",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+									"});",
+									"pm.test(\"Code to contain string\", function(){",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "4588f2b3-91e9-4e56-bdcf-bd975ea311e6"
+							}
+						}
+					],
+					"id": "dba36229-a1a2-438e-9a90-f4b78cee26ae",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"miar\",\n    \"password\": \"miarpass\",\n    \"expiresInMins\": 30\n        \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve current authenticated user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\",function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Code name to contain string\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"Response body contains 'Mia'\", function(){",
+									"    pm.expect(pm.response.json()).to.have.property('firstName', 'Mia')",
+									"})",
+									"",
+									"pm.test(\"Response body contains 'Rodriguez'\", function(){",
+									"    pm.expect(pm.response.json()).to.have.property('lastName', 'Rodriguez')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "fd82f662-df08-424e-911c-1f5470e4f273"
+							}
+						}
+					],
+					"id": "120f9333-8a5c-4465-9c99-f8c49a5ce18d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoibWlhciIsImVtYWlsIjoibWlhLnJvZHJpZ3VlekB4LmR1bW15anNvbi5jb20iLCJmaXJzdE5hbWUiOiJNaWEiLCJsYXN0TmFtZSI6IlJvZHJpZ3VleiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9kdW1teWpzb24uY29tL2ljb24vbWlhci8xMjgiLCJpYXQiOjE3Mjk1NDIzNzYsImV4cCI6MTcyOTU0NDE3Nn0.h8YARAjvCRc8kqvPRpiMGn7ZrdxMRMuDbWuZcImQIsg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/user/me",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\",function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Code name to contain string\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"Response body is an object\", function () {",
+									"     pm.expect(typeof pm.response.json()).to.eq('object');",
+									"})",
+									"",
+									"pm.test(\"id is 60\", function () {",
+									"     pm.expect(pm.response.json().id).to.equal(60);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "4db96b91-c9c4-4205-9fa2-201150e06053"
+							}
+						}
+					],
+					"id": "fe34ac15-a158-4217-911b-2c9507d40240",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/60",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Code name to contain string\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "7106834f-cf89-4b84-a87f-ff79d5c550d6"
+							}
+						}
+					],
+					"id": "47850876-0d70-40a4-8c17-695e892e78d4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/search?q=John",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "John"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"The value of hair color is Red and type is Kinky\", function(){",
+									"    const responseBody = pm.response.json();",
+									"    pm.expect(responseBody.users[0].hair.color).to.eql(\"Red\");",
+									"    pm.expect(responseBody.users[0].hair.type).to.eql(\"Kinky\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "0bde10eb-c7cf-47c3-bf00-6afbbf424145"
+							}
+						}
+					],
+					"id": "28fe0b46-1719-4053-b1b3-5efc3ff000ff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/filter?key=hair.color&value=Red",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "hair.color"
+								},
+								{
+									"key": "value",
+									"value": "Red"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Limit users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "6382683c-98a1-484b-aa59-5c38e0157190"
+							}
+						}
+					],
+					"id": "ac368f02-b0e2-4c69-9963-5f99d3e00464",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users?sortBy=firstName&order=asc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "firstName"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a user's cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"Response body contains userID\", function () {",
+									"     pm.expect(pm.response.json()).to.have.property('carts');",
+									"     pm.response.json().carts.forEach((cart) => {",
+									"            pm.expect(cart).to.have.property('userId', 6);",
+									"     });",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "decb2c7e-331f-4894-b01e-31393ff3cb71"
+							}
+						}
+					],
+					"id": "afff1b6e-357d-4eec-8710-e921b9090284",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/6/carts",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"6",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve user's posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"Response body contains userID\", function () {",
+									"     pm.expect(pm.response.json()).to.have.property('posts');",
+									"     pm.response.json().posts.forEach((post) => {",
+									"            pm.expect(post).to.have.property('userId', 5);",
+									"     });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "2031e667-bba1-42f0-9482-fa8647ef54d4"
+							}
+						}
+					],
+					"id": "15793f9f-67b8-49ba-a51e-400e4e030678",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/5/posts",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"5",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST Request\", function(){",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(\"Created\")",
+									"})",
+									"pm.test(\"response body is an object\", function(){",
+									"    pm.expect(typeof pm.response.json()).to.eq('object')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "b7f95d38-64d9-4ea9-9f0d-e9fc8bcbfcbd"
+							}
+						}
+					],
+					"id": "698ff145-2d75-4145-a63b-54afe7337ca6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Mojisola\",\n    \"lastName\": \"Otusheso\",\n    \"age\": 24\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT Request\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"Successful GET Request\", function(){",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"response body is an object\", function(){",
+									"    pm.expect(typeof pm.response.json()).to.eq('object')",
+									"})",
+									"pm.test(\"username is MojisolaO\", function () {",
+									"     pm.expect(pm.response.json().username).to.equal(\"MojisolaO\");",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "5de20126-ad5b-4134-acb1-a71c5ba1b6a8"
+							}
+						}
+					],
+					"id": "4385bbba-3654-46b6-af7d-0556e0a04452",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"MojisolaO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/25",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "60738aec-4634-41dc-a5ff-b712de766b47",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}users/40",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"40"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "80fe49db-2255-4643-bd66-337aa78df614"
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "new post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function(){",
+									"    pm.response.to.have.status(201)",
+									"    pm.response.to.have.status(\"Created\")",
+									"})",
+									"",
+									"pm.test(\"Successful POST Creation\", function(){",
+									"    pm.expect(pm.response.json()).to.be.an('object')",
+									"        pm.expect(pm.response.json()).to.have.keys('id', 'title', 'userId')",
+									"        pm.expect(pm.response.json().title).to.eq('This is my first post')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "5d9e6ff9-6662-47d9-a958-1d12716a12b6"
+							}
+						}
+					],
+					"id": "1e93bb25-0ee0-4f27-9716-18f28ed055fe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"This is my first post\",\n    \"userId\": 5       \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/posts/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST Creation\", function(){",
+									"    pm.expect(pm.response.json().text).to.include('love')",
+									"",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "7a5dd3c3-6e30-4974-a768-3cdade3b7bf9"
+							}
+						}
+					],
+					"id": "0744d231-ae45-4dc8-9285-2823fcadd5da",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/posts/search?q=love",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "love"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "4f32e086-63d1-44d8-ad7e-087836604be2"
+		}
+	]
+}
