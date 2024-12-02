@@ -42,6 +42,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: postman-results  # Upload the folder containing the HTML report
+          
 
   deploy:
     needs: run-postman-tests
@@ -49,6 +50,8 @@ jobs:
     permissions:
       pages: write
       id-token: write
+    environment:
+      name: github-pages  # Use this for GitHub Pages deployment
     steps:
       # Step 6: Deploy the report to GitHub Pages
       - name: Deploy to GitHub Pages
