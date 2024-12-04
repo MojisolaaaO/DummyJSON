@@ -844,9 +844,11 @@
 									"pm.test(\"Filter users by hair color\", function () {",
 									"    const responseBody = pm.response.json();",
 									"    pm.expect(responseBody.users).to.be.an(\"array\");",
-									"    // Check that every user's hair color is 'Brown'",
+									"",
+									"    // Check every user's hair color ",
+									"    const color = pm.variables.get(\"color\"); ",
 									"    responseBody.users.forEach(user => {",
-									"        pm.expect(user.hair.color).to.eq(\"Brown\");",
+									"        pm.expect(user.hair.color).to.eq(color);",
 									"    });",
 									"});"
 								],
@@ -859,7 +861,7 @@
 							"script": {
 								"id": "27d75b81-b22e-40ac-bede-16e8c67515fa",
 								"exec": [
-									""
+									"pm.variables.set(\"color\", \"Red\"); // Replace with the desired color"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -874,7 +876,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/users/filter?key=hair.color&value=Brown",
+							"raw": "{{baseURL}}/users/filter?key=hair.color&value={{color}}",
 							"host": [
 								"{{baseURL}}"
 							],
@@ -889,7 +891,7 @@
 								},
 								{
 									"key": "value",
-									"value": "Brown"
+									"value": "{{color}}"
 								}
 							]
 						}
@@ -912,6 +914,9 @@
 									"    const responseBody = pm.response.json();",
 									"    pm.expect(responseBody.users).to.be.an(\"array\");",
 									"    const role = pm.variables.get(\"role\"); ",
+									"     responseBody.users.forEach(user => {",
+									"        pm.expect(user.role).to.eq(role);",
+									"    });",
 									"});"
 								],
 								"type": "text/javascript",
@@ -923,7 +928,7 @@
 							"script": {
 								"id": "27d75b81-b22e-40ac-bede-16e8c67515fa",
 								"exec": [
-									"pm.variables.set(\"role\", \"admin\"); // Replace with the desired ID"
+									"pm.variables.set(\"role\", \"admin\"); // Replace with the desired role"
 								],
 								"type": "text/javascript",
 								"packages": {}
