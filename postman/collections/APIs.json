@@ -953,6 +953,401 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "limit and skip users",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b001862b-837c-4673-8f75-f4cfcb8c8d1b",
+								"exec": [
+									"const variables = {",
+									"    limit: 5,",
+									"    skip: 20",
+									"};",
+									"",
+									"Object.entries(variables).forEach(([key, value]) => {",
+									"    pm.variables.set(key, value);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a227f7c3-bc70-461e-9b5a-6a4089e09df7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"Limit and skip users\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    ",
+									"    const variables = {",
+									"        limit: pm.variables.get(\"limit\"),",
+									"        skip: pm.variables.get(\"skip\")",
+									"    };",
+									"",
+									"    Object.entries(variables).forEach(([key, value]) => {",
+									"        pm.expect(responseBody[key]).to.eq(value);",
+									"    });",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "458d8f4a-b156-4c21-b22e-84f749a43ee0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users?limit={{limit}}&skip={{skip}}&select=firstName,age",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "skip",
+									"value": "{{skip}}"
+								},
+								{
+									"key": "select",
+									"value": "firstName,age"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sort users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "626a6e09-7f66-4a9d-826c-ddfe2e7f69b3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "34c465b0-eb10-493d-a618-7295da56a664",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users?sortBy=firstName&order=asc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "firstName"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user's cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "626a6e09-7f66-4a9d-826c-ddfe2e7f69b3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "750e6b37-c20f-4d4d-9756-6d57b77f7912",
+								"exec": [
+									"pm.variables.set(\"userId\", 6);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "a8ab9e8e-1e1f-4b8c-9464-f04e8513fb0f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/{{userId}}/carts",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user's posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d70a6768-6462-4d31-bbad-16de5fa439b9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "83bf84ed-f137-402a-af33-7fe22874c690",
+								"exec": [
+									"pm.variables.set(\"userId\", 6);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "53fc1f60-b870-4cc0-a520-55fdd763eca0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/{{userId}}/posts",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user's todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "54a0f182-6913-4b9c-bf6e-ab1fe8395651",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c92c8648-ff88-485f-9ae6-e50acf00ab35",
+								"exec": [
+									"pm.variables.set(\"userId\", 6);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "d0e4e0ac-02a9-4d00-a72a-0dc0561235ed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/{{userId}}/todos",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac235b19-d411-4fc7-b5e3-d6cd2df22df7",
+								"exec": [
+									"pm.test(\"Status code is 201\", function(){",
+									"    pm.response.to.have.status(201)",
+									"    pm.response.to.have.status(\"Created\")",
+									"})",
+									"",
+									"pm.test(\"User is added successfully\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    pm.expect(responseBody).to.have.property(\"id\"); ",
+									"    pm.expect(responseBody).to.have.property(\"firstName\", \"Test\"); ",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "e3d2812c-0e84-4409-b5d5-4727fa94d554",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Test\",\n    \"lastName\": \"User\",\n    \"age\": 24,\n    \"gender\": \"Female\",\n    \"email\": \"testuser@gmail.com\",\n    \"username\":\"tester\",\n    \"password\": \"Testing123\",\n    \"birthDate\": \"April 29th\",\n    \"hair\":{\n        \"color\": \"black\",\n        \"type\": \"straight\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f57bd60a-c7d5-485f-b235-977e66a023a9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"User's details is updated successfully\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    pm.expect(responseBody.id).to.eq(2); ",
+									"    pm.expect(responseBody.hair.color).to.eq(\"Brown\"); ",
+									"    pm.expect(responseBody.hair.type).to.eq(\"Curly\"); ",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c3f0a5c1-f7ea-422d-bb7f-6bdd56d23777",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"hair\": {\n        \"color\": \"Brown\",\n        \"type\": \"Curly\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "25c44e45-c4da-4083-a70c-a46ec65e91af"
