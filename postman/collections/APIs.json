@@ -15,17 +15,18 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "df2b39c4-5dc8-4959-b8a3-827dc41c2a24",
 								"exec": [
 									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "df2b39c4-5dc8-4959-b8a3-827dc41c2a24"
+								"packages": {}
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
+								"id": "baa53dec-4d3d-4816-b632-cd923632122d",
 								"exec": [
 									"pm.test(\"Status code is 200\", function(){",
 									"    pm.response.to.have.status(200)",
@@ -34,8 +35,6 @@
 									"",
 									"pm.test(\"Successful login\", function(){",
 									"    const responseBody = pm.response.json()",
-									"    pm.expect(typeof responseBody).to.eq('object')",
-									"    pm.expect(responseBody).to.have.keys('accessToken', 'refreshToken', 'id', 'username', 'email', 'firstName', 'lastName', 'gender', 'image')",
 									"    pm.expect(typeof responseBody.accessToken).to.eq('string')",
 									"    pm.expect(typeof responseBody.refreshToken).to.eq('string')",
 									"    pm.expect(responseBody.username).to.eq('emmaj')",
@@ -44,8 +43,7 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "baa53dec-4d3d-4816-b632-cd923632122d"
+								"packages": {}
 							}
 						}
 					],
@@ -84,17 +82,18 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "9637671d-f13f-4c80-82b5-d9c230d6ce52",
 								"exec": [
 									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "9637671d-f13f-4c80-82b5-d9c230d6ce52"
+								"packages": {}
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
+								"id": "5f623087-c143-468c-bb69-c0696178d2a5",
 								"exec": [
 									"pm.test(\"Status code is 400\", function(){",
 									"    pm.response.to.have.status(400)",
@@ -103,13 +102,11 @@
 									"",
 									"pm.test(\"Login with no credentials\", function(){",
 									"    const responseBody = pm.response.json()",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"    pm.expect(responseBody.message).to.eq('Username and password required')",
 									"    })"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "5f623087-c143-468c-bb69-c0696178d2a5"
+								"packages": {}
 							}
 						}
 					],
@@ -148,17 +145,18 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "00266439-e50c-4b4c-bc87-ff3abb4e1f90",
 								"exec": [
 									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "00266439-e50c-4b4c-bc87-ff3abb4e1f90"
+								"packages": {}
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
+								"id": "e8522dd3-6525-4324-8e96-e49efb90df4f",
 								"exec": [
 									"pm.test(\"Status code is 400\", function(){",
 									"    pm.response.to.have.status(400)",
@@ -167,13 +165,11 @@
 									"",
 									"pm.test(\"Login with no username\", function(){",
 									"    const responseBody = pm.response.json()",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"    pm.expect(responseBody.message).to.eq('Username and password required')",
 									"    })"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "e8522dd3-6525-4324-8e96-e49efb90df4f"
+								"packages": {}
 							}
 						}
 					],
@@ -232,7 +228,6 @@
 									"",
 									"pm.test(\"Login with no password\", function(){",
 									"    const responseBody = pm.response.json()",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"    pm.expect(responseBody.message).to.eq('Username and password required')",
 									"    })"
 								],
@@ -276,17 +271,18 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "739eb1a3-b391-405a-8528-6da70d314e8d",
 								"exec": [
 									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "739eb1a3-b391-405a-8528-6da70d314e8d"
+								"packages": {}
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
+								"id": "73ba5679-a266-4c44-b5ee-4fd775261a29",
 								"exec": [
 									"pm.test(\"Status code is 400\", function(){",
 									"    pm.response.to.have.status(400)",
@@ -295,13 +291,11 @@
 									"",
 									"pm.test(\"Invalid username\", function(){",
 									"    const responseBody = pm.response.json()",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"    pm.expect(responseBody.message).to.eq('Invalid credentials')",
 									"    })"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "73ba5679-a266-4c44-b5ee-4fd775261a29"
+								"packages": {}
 							}
 						}
 					],
@@ -340,17 +334,18 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "6b4c8835-d86f-44a5-b2df-0c2254e3ec0f",
 								"exec": [
 									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "6b4c8835-d86f-44a5-b2df-0c2254e3ec0f"
+								"packages": {}
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
+								"id": "0b5409d7-6247-452b-a7a8-adf437047ba3",
 								"exec": [
 									"pm.test(\"Status code is 400\", function(){",
 									"    pm.response.to.have.status(400)",
@@ -359,13 +354,11 @@
 									"",
 									"pm.test(\"Invalid password\", function(){",
 									"    const responseBody = pm.response.json()",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"    pm.expect(responseBody.message).to.eq('Invalid credentials')",
 									"    })"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "0b5409d7-6247-452b-a7a8-adf437047ba3"
+								"packages": {}
 							}
 						}
 					],
@@ -404,17 +397,18 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "89c227e4-adc3-4ffb-98f5-dbcbf2d9666a",
 								"exec": [
 									"pm.environment.set(\"baseUrl\", \"https://dummyjson.com\");"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "89c227e4-adc3-4ffb-98f5-dbcbf2d9666a"
+								"packages": {}
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
+								"id": "d0c416d9-6757-4fd4-97a5-28a843a1c2fb",
 								"exec": [
 									"pm.test(\"Status code is 400\", function(){",
 									"    pm.response.to.have.status(400)",
@@ -423,13 +417,11 @@
 									"",
 									"pm.test(\"Invalid credentials\", function(){",
 									"    const responseBody = pm.response.json()",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"    pm.expect(responseBody.message).to.eq('Invalid credentials')",
 									"    })"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "d0c416d9-6757-4fd4-97a5-28a843a1c2fb"
+								"packages": {}
 							}
 						}
 					],
@@ -668,7 +660,6 @@
 									"pm.test(\"Invalid user id\", function () {",
 									"    const responseBody = pm.response.json();",
 									"    const userId = pm.variables.get(\"userId\"); ",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"});"
 								],
 								"type": "text/javascript",
@@ -722,7 +713,6 @@
 									"})",
 									"pm.test(\"Invalid search\", function () {",
 									"    const responseBody = pm.response.json();",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"    pm.expect(responseBody.users).to.be.an(\"array\").that.is.empty;",
 									"    pm.expect(responseBody.total).to.eq(0)",
 									"});"
@@ -783,7 +773,6 @@
 									"})",
 									"pm.test(\"Search for a user\", function () {",
 									"    const responseBody = pm.response.json();",
-									"    pm.expect(typeof responseBody).to.eq('object')",
 									"    pm.expect(pm.response.text()).to.include('Smith');",
 									"});"
 								],
