@@ -461,9 +461,507 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "user details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "72ec80a0-b31c-4f05-a237-535bd8f30383",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"User details\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(responseBody.firstName).to.eq(\"Emma\")",
+									"    pm.expect(responseBody.lastName).to.eq(\"Miller\")",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "9912e7f9-d7ae-4f73-abcb-c2a297afe0f7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/auth/me",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "b8b69f45-cc0d-4267-b5b2-6f8bb8453a25"
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "invalid url",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fbe6191-ee47-40e6-9f22-0c0be2b32cfd",
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){",
+									"    pm.response.to.have.status(404)",
+									"     pm.response.to.have.status(\"Not Found\")",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "eabce384-653b-464e-8b83-ac64b7763c11",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/use",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"use"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "50 users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fbe6191-ee47-40e6-9f22-0c0be2b32cfd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"Response body contains 50 users\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    pm.expect(responseBody).to.have.property(\"limit\")",
+									"    pm.expect(responseBody.limit).to.eq(50)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "1062eaec-6195-4c51-8744-d19969672b06",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users?limit=50",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "invalid user id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fbe6191-ee47-40e6-9f22-0c0be2b32cfd",
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){",
+									"    pm.response.to.have.status(404)",
+									"     pm.response.to.have.status(\"Not Found\")",
+									"})",
+									"pm.test(\"Invalid user id\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    const userId = pm.variables.get(\"userId\"); // Fetch the dynamic user ID",
+									"    pm.expect(responseBody.message).to.eq(`User with id '${userId}' not found`);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "27d75b81-b22e-40ac-bede-16e8c67515fa",
+								"exec": [
+									"pm.variables.set(\"userId\", 303); // Replace with the desired ID",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "1ea86a09-75e7-43af-9798-21c0bb4f1690",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/{{userId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fbe6191-ee47-40e6-9f22-0c0be2b32cfd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"Invalid user id\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    const userId = pm.variables.get(\"userId\"); ",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "27d75b81-b22e-40ac-bede-16e8c67515fa",
+								"exec": [
+									"pm.variables.set(\"userId\", 5); // Replace with the desired ID",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "e45c622c-b255-4b69-9a3c-89f310cfaeeb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/{{userId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "invalid search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fbe6191-ee47-40e6-9f22-0c0be2b32cfd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"Invalid search\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(responseBody.users).to.be.an(\"array\").that.is.empty;",
+									"    pm.expect(responseBody.total).to.eq(0)",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "27d75b81-b22e-40ac-bede-16e8c67515fa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "734874ea-e85e-4a01-8da7-10ae5b4a0f72",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/search?q=Moji",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Moji"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search for a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fbe6191-ee47-40e6-9f22-0c0be2b32cfd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"Search for a user\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    pm.expect(typeof responseBody).to.eq('object')",
+									"    pm.expect(pm.response.text()).to.include('Smith');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "27d75b81-b22e-40ac-bede-16e8c67515fa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "65aff7a2-57a7-4cc9-8982-1b0638799d6d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/search?q=Smith",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Smith"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter users by hair color",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fbe6191-ee47-40e6-9f22-0c0be2b32cfd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"Filter users by hair color\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    pm.expect(responseBody.users).to.be.an(\"array\");",
+									"    // Check that every user's hair color is 'Brown'",
+									"    responseBody.users.forEach(user => {",
+									"        pm.expect(user.hair.color).to.eq(\"Brown\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "27d75b81-b22e-40ac-bede-16e8c67515fa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "7a9722f2-3a9c-49cc-ab4c-67b90ddc7acd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/filter?key=hair.color&value=Brown",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "hair.color"
+								},
+								{
+									"key": "value",
+									"value": "Brown"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter users by roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fbe6191-ee47-40e6-9f22-0c0be2b32cfd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"pm.test(\"Filter users by roles\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    pm.expect(responseBody.users).to.be.an(\"array\");",
+									"    const role = pm.variables.get(\"role\"); ",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "27d75b81-b22e-40ac-bede-16e8c67515fa",
+								"exec": [
+									"pm.variables.set(\"role\", \"admin\"); // Replace with the desired ID"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "7dd8a7bb-ca0f-4e2e-a5d4-ae1c38c5b1b9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/filter?key=role&value={{role}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "role"
+								},
+								{
+									"key": "value",
+									"value": "{{role}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "25c44e45-c4da-4083-a70c-a46ec65e91af"
 		}
 	]
 }
