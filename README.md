@@ -1,7 +1,7 @@
 # DummyJSON
 
 # Overview
-This project is designed to run automated Postman API tests of [DummuyJSON](https://dummyjson.com) using GitHub Actions. 
+This project is designed to run automated Postman API tests of [DummyJSON](https://dummyjson.com) using GitHub Actions. 
 
 # Features
 - Automated Postman API testing using Newman (Postman's CLI tool)
