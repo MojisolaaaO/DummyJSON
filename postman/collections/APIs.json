@@ -1351,6 +1351,416 @@
 				}
 			],
 			"id": "25c44e45-c4da-4083-a70c-a46ec65e91af"
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "all products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2a55067-f4e4-45ed-94c7-822e02eb7df9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "52df236b-38c1-41e2-a483-0131a18069f1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all products (invalid url)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2a55067-f4e4-45ed-94c7-822e02eb7df9",
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){",
+									"    pm.response.to.have.status(404)",
+									"     pm.response.to.have.status(\"Not Found\")",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c316548b-10be-44df-b0f8-4085e1962446",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/prod",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"prod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "a single product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2a55067-f4e4-45ed-94c7-822e02eb7df9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"Product details\", function(){",
+									"    const productId = pm.variables.get(\"productID\")",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0ad74ba9-ab7f-4a51-9688-4e5d4465d587",
+								"exec": [
+									"pm.variables.set(\"productID\", 5)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "9472f3f7-5975-43a5-86b6-4fe692c30111",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/product/{{productID}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product",
+								"{{productID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search for a product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2a55067-f4e4-45ed-94c7-822e02eb7df9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"     pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"Product details\", function(){",
+									"    const item = pm.variables.get(\"item\")",
+									"    pm.expect(pm.response.text()).to.include(item)",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0ad74ba9-ab7f-4a51-9688-4e5d4465d587",
+								"exec": [
+									"pm.variables.set(\"item\", \"phone\")"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "19c3d626-ef16-4a58-bddc-573cbbe740e8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/product/search?q={{item}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{item}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "limit and skip product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ecc20714-c081-438b-956c-ce4ec4c0824a",
+								"exec": [
+									"const variables = {",
+									"    limit: 10,",
+									"    skip: 20",
+									"};",
+									"",
+									"Object.entries(variables).forEach(([key, value]) => {",
+									"    pm.variables.set(key, value);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1caa9867-565a-4006-9ea0-a0b1253171cc",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Limit and skip products\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    const variables = {",
+									"        limit: pm.variables.get(\"limit\"),",
+									"        skip: pm.variables.get(\"skip\")",
+									"    };",
+									"",
+									"    Object.entries(variables).forEach(([key, value]) => {",
+									"        pm.expect(responseBody[key]).to.eq(value);",
+									"    });",
+									"",
+									"    responseBody.products.forEach(product => {",
+									"        pm.expect(product).to.include.keys('title', 'category');",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "bc656b86-1259-4712-bc0b-ee5f277ac755",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products?limit={{limit}}&skip={{skip}}&select=title,category",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "skip",
+									"value": "{{skip}}"
+								},
+								{
+									"key": "select",
+									"value": "title,category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sort products by ascending order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af1a9708-abf8-4343-95cb-e7a1e2a0479d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body is sorted in ascending order\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    const fieldToSort = \"title\";",
+									"",
+									"    // Extract the values of the field to sort",
+									"    const values = responseBody.products.map(product => product[fieldToSort]);",
+									"",
+									"    // Check if the array is sorted in ascending order",
+									"    const isSorted = values.every((value, index, array) => {",
+									"        return index === 0 || array[index - 1] <= value;",
+									"    });",
+									"",
+									"    // Assert that the array is sorted",
+									"    pm.expect(isSorted).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c0dd21fa-7557-4715-adb0-edbebb6f857b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/product?sortBy=title&order=asc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "title"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sort products by descending order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af1a9708-abf8-4343-95cb-e7a1e2a0479d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body is sorted in descending order\", function () {",
+									"    const responseBody = pm.response.json();",
+									"    const fieldToSort = \"title\";",
+									"",
+									"    // Extract the values of the field to sort",
+									"    const values = responseBody.products.map(product => product[fieldToSort]);",
+									"",
+									"    // Check if the array is sorted in ascending order",
+									"    const isSorted = values.every((value, index, array) => {",
+									"        return index === 0 || array[index - 1] <= value;",
+									"    });",
+									"",
+									"    // Assert that the array is sorted",
+									"    pm.expect(isSorted).to.be.false;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "75b19f10-188d-49e5-af24-16776c74a06d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/product?sortBy=title&order=desc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "title"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "b3d16cfb-4dbf-40da-88d8-790b99f686df"
 		}
 	]
 }
