@@ -1448,6 +1448,7 @@
 									"",
 									"pm.test(\"Product details\", function(){",
 									"    const productId = pm.variables.get(\"productID\")",
+									"    pm.expect(pm.response.json().id).to.eq(productId)",
 									"})",
 									""
 								],
