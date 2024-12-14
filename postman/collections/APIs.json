@@ -40,6 +40,22 @@
 									"    pm.expect(responseBody.username).to.eq('emmaj')",
 									"    })",
 									"",
+									"",
+									"pm.test(\"Save access token and expiry time\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    const accessToken = responseJson.accessToken; ",
+									"    const expiresIn = 900; // Replace with your token's expiry time in seconds (e.g., 1 hour = 3600s)",
+									"    const expiryTime = Date.now() + (expiresIn * 1000); // Calculate expiry time in milliseconds",
+									"",
+									"    // Save the access token and expiry time in environment variables",
+									"    pm.environment.set(\"accessToken\", accessToken);",
+									"    pm.environment.set(\"tokenExpiry\", expiryTime);",
+									"",
+									"    pm.expect(accessToken).to.not.be.null; // Optional assertion to ensure the token is valid",
+									"});",
+									"",
+									"",
+									"",
 									""
 								],
 								"type": "text/javascript",
@@ -56,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"emmaj\",\n    \"password\": \"emmajpass\",\n    \"expiresInMins\": 60 // optional, defaults to 60\n}\n",
+							"raw": "{\n    \"username\": \"emmaj\",\n    \"password\": \"emmajpass\",\n    \"expiresInMins\": 15 // optional, defaults to 60\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -476,6 +492,62 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "de49a3f8-381b-430d-8873-f9fe79cf66c0",
+								"exec": [
+									"// Get the current access token and token expiry from Postman environment",
+									"const accessToken = pm.environment.get(\"accessToken\");",
+									"const tokenExpiry = pm.environment.get(\"tokenExpiry\");",
+									"",
+									"// Check if the access token is missing OR if it has expired",
+									"if (!accessToken || Date.now() > tokenExpiry) {",
+									"    console.log(\"Token expired or missing. Requesting a new one...\");",
+									"",
+									"    // Send a request to the login API endpoint to obtain a new access token",
+									"    pm.sendRequest({",
+									"        url: 'https://dummyjson.com/auth/login', ",
+									"        method: 'POST', ",
+									"        header: {",
+									"            'Content-Type': 'application/json'  ",
+									"        },",
+									"        body: {",
+									"            mode: 'raw', ",
+									"            raw: JSON.stringify({",
+									"                username: 'your-username', ",
+									"                password: 'your-password' ",
+									"            })",
+									"        }",
+									"    }, function (err, response) {",
+									"        // This callback function runs after the login request completes",
+									"        if (err) {",
+									"            console.error('Error during token request', err);",
+									"            return; // Stop further execution if an error occurs",
+									"        }",
+									"",
+									"        // Parse the JSON response from the server",
+									"        const responseJson = response.json();",
+									"",
+									"        // Extract the access token from the response (modify if the key name is different)",
+									"        const newAccessToken = responseJson.access_token;",
+									"",
+									"        const expiresIn = 900; // The token expires in 15 mins",
+									"        ",
+									"        // Calculate the new expiration time in milliseconds",
+									"        const newExpiryTime = Date.now() + (expiresIn * 1000); // Current time + 900 seconds",
+									"",
+									"        // Store the access token and its expiration time in the environment variables",
+									"        pm.environment.set(\"accessToken\", newAccessToken);",
+									"        pm.environment.set(\"tokenExpiry\", newExpiryTime);",
+									"    }); ",
+									"",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
 					],
 					"id": "9912e7f9-d7ae-4f73-abcb-c2a297afe0f7",
@@ -483,6 +555,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
