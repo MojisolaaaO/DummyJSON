@@ -1844,6 +1844,103 @@
 				}
 			],
 			"id": "b3d16cfb-4dbf-40da-88d8-790b99f686df"
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "get all posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c81658e-4841-4420-85f6-95b439a2dfea",
+								"exec": [
+									"pm.test(\"Status code\", function(){",
+									"    pm.response.to.have.status(200)",
+									"    pm.response.to.have.status(\"OK\")",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "e73ec0a8-fe4c-4d5f-b773-a2a062f1caa7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/posts",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get a post",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4834b1bc-8989-4939-a7c3-67873c60fbf6",
+								"exec": [
+									"pm.variables.set(\"postID\", 8)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a6928e0-16c5-4336-8707-eba8e2d10733",
+								"exec": [
+									"pm.test(\"Status code\", function(){",
+									"    pm.response.to.have.status(200)",
+									"    pm.response.to.have.status(\"OK\")",
+									"})",
+									"",
+									"pm.test(\"Post details\", function(){",
+									"    const postID = pm.variables.get(\"postID\")",
+									"    pm.expect(pm.response.json().id).to.eq(postID)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "1828cd73-59a2-4657-a310-ca5bdb65ae52",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/post/{{postID}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"post",
+								"{{postID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "94f0a004-a674-4ca9-8d3e-33c5ca4235c5"
 		}
 	]
 }
