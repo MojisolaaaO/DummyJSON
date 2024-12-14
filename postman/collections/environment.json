@@ -4,6 +4,17 @@
       "key": "baseURL",
       "value": "https://dummyjson.com", 
       "enabled": true
+    },
+    {
+      "key": "accessToken",
+      "value": "", 
+      "enabled": true
+    },
+    {
+      "key": "tokenExpiry",
+      "value": "", 
+      "enabled": true
     }
   ]
 }
+
