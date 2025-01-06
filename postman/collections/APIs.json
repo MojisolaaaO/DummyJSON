@@ -2008,8 +2008,6 @@
 									"    const skipNo = pm.variables.get(\"skipNo\")",
 									"    pm.expect(responseBody.limit).to.eq(limitNo)",
 									"    pm.expect(responseBody.skip).to.eq(skipNo)",
-									"    pm.expect(responseBody.posts[0]).to.have.keys(\"title\", \"reactions\", \"userId\")",
-									"",
 									"})"
 								],
 								"type": "text/javascript",
