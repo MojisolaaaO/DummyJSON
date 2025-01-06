@@ -1856,9 +1856,8 @@
 							"script": {
 								"id": "2c81658e-4841-4420-85f6-95b439a2dfea",
 								"exec": [
-									"pm.test(\"Status code\", function(){",
+									"pm.test(\"Status code is 200\", function(){",
 									"    pm.response.to.have.status(200)",
-									"    pm.response.to.have.status(\"OK\")",
 									"})"
 								],
 								"type": "text/javascript",
@@ -1934,6 +1933,136 @@
 							"path": [
 								"post",
 								"{{postID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search for a post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c81658e-4841-4420-85f6-95b439a2dfea",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Search results\", function() {",
+									"//     const posts = pm.response.json().posts;",
+									"//    posts.forEach(function(post) {",
+									"//         pm.expect(post.body).to.include(\"love\");",
+									"//     });",
+									"// });",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "2ce7bfd0-5818-438e-98a4-d7d9f3cac6a5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/posts/search?q=love",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "love"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "limit a post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c81658e-4841-4420-85f6-95b439a2dfea",
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Posts\", function(){",
+									"    const responseBody = pm.response.json()",
+									"    const limitNo = pm.variables.get(\"limitNo\")",
+									"    const skipNo = pm.variables.get(\"skipNo\")",
+									"    pm.expect(responseBody.limit).to.eq(limitNo)",
+									"    pm.expect(responseBody.skip).to.eq(skipNo)",
+									"    pm.expect(responseBody.posts[0]).to.have.keys(\"title\", \"reactions\", \"userId\")",
+									"",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "92ea377f-027d-45f7-a40f-2b4d4b7c1daa",
+								"exec": [
+									"const variables = {",
+									"    limitNo: 6,",
+									"    skipNo: 20",
+									"};",
+									"",
+									"Object.entries(variables).forEach(([key, value]) => {",
+									"    pm.variables.set(key, value);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "316dd31c-75d2-4b2c-ad62-4f467ac5475b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/posts?limit={{limitNo}}&skip={{skipNo}}&select=title,reactions,userId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limitNo}}"
+								},
+								{
+									"key": "skip",
+									"value": "{{skipNo}}"
+								},
+								{
+									"key": "select",
+									"value": "title,reactions,userId"
+								}
 							]
 						}
 					},
