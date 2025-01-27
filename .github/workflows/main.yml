@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Specify the branch to trigger tests on push
     paths:
-      - 'postman/collections/APIs.json'  # Only trigger if APIs.json is modified
+      - 'postman/collections/Resources.json'  # Only trigger if APIs.json is modified
       - 'postman/collections/environment.json'  # Only trigger if environment.json is modified
 
 jobs:
