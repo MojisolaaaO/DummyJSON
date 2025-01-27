@@ -1849,7 +1849,7 @@
 			"name": "Posts",
 			"item": [
 				{
-					"name": "get all posts",
+					"name": "retrieve all posts",
 					"event": [
 						{
 							"listen": "test",
@@ -1885,7 +1885,7 @@
 					"response": []
 				},
 				{
-					"name": "get a post",
+					"name": "retrieve a post",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2078,18 +2078,17 @@
 							"script": {
 								"id": "670fcf45-2cde-4c76-bfb2-0da661651d2f",
 								"exec": [
-									"const responseBody = pm.response.json()",
+									"pm.test(\"Status code is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
 									"",
-									"pm.test(\"Status code is 200\", function(){",
-									"    pm.response.to.have.status(200)",
-									"})",
-									"",
-									"pm.test(\"Retrieve a user's posts\", function(){",
-									"    const user = pm.variables.get(\"userID\")",
+									"pm.test(\"Retrieve a user's posts\", function() {",
+									"    const responseBody = pm.response.json();",
+									"    const user = pm.variables.get(\"userID\");",
 									"    responseBody.posts.forEach(post => {",
-									"        pm.expect(post.userId).to.eql(user)",
-									"    })",
-									"})",
+									"        pm.expect(post.userId).to.eql(user);",
+									"    });",
+									"});",
 									""
 								],
 								"type": "text/javascript",
