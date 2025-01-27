@@ -2209,6 +2209,18 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete a post",
+					"id": "76378da3-0a90-4c01-a299-e73bbcc44a50",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			],
 			"id": "94f0a004-a674-4ca9-8d3e-33c5ca4235c5"
