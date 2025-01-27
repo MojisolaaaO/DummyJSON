@@ -32,7 +32,7 @@ jobs:
       # Step 4: Run Newman with Postman collection
       - name: Run API Tests
         run: |
-          newman run postman/collections/APIs.json \
+          newman run postman/collections/Resources.json \
             --environment postman/collections/environment.json \
             --reporters cli,html \
             --reporter-html-export postman-results/report.html  # Generate HTML report
