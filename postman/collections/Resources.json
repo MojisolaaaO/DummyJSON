@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "40dee167-3899-485d-a61c-2f7e78f87e0e",
-		"name": "APIs",
+		"name": "Resources",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_uid": "34735841-40dee167-3899-485d-a61c-2f7e78f87e0e"
 	},
@@ -1950,13 +1950,6 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"// pm.test(\"Search results\", function() {",
-									"//     const posts = pm.response.json().posts;",
-									"//    posts.forEach(function(post) {",
-									"//         pm.expect(post.body).to.include(\"love\");",
-									"//     });",
-									"// });",
-									"",
 									""
 								],
 								"type": "text/javascript",
@@ -2061,6 +2054,157 @@
 									"key": "select",
 									"value": "title,reactions,userId"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve a post by user id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5c69f5b1-488d-4f5e-84e5-9d64cb26112b",
+								"exec": [
+									"pm.variables.set(\"userID\", 30)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "670fcf45-2cde-4c76-bfb2-0da661651d2f",
+								"exec": [
+									"const responseBody = pm.response.json()",
+									"",
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Retrieve a user's posts\", function(){",
+									"    const user = pm.variables.get(\"userID\")",
+									"    responseBody.posts.forEach(post => {",
+									"        pm.expect(post.userId).to.eql(user)",
+									"    })",
+									"})",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "1d1b8e0c-38a6-4169-88b4-edded298a4cb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/posts/user/{{userID}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"user",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add a new post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "18842678-c243-4a0c-b394-674af934a941",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "bd05854d-01d9-492a-afd2-4d025da0e1b0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"API Testing\",\n    \"body\": \"I am testing DummyJSON using Postman\",\n    \"userId\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/posts/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update a post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "18842678-c243-4a0c-b394-674af934a941",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "f2d5d275-d23c-4696-8c96-acc0cb311f2d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\": \"I am testing DummyJSON with Postman and I am adding test scripts\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/posts/30",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"30"
 							]
 						}
 					},
