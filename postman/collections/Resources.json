@@ -2217,8 +2217,18 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/posts/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"3"
+							]
+						}
 					},
 					"response": []
 				}
